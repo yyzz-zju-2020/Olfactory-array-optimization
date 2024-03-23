@@ -84,19 +84,29 @@ class sca():
             X_temp = self.X[ax]
             for ab in range(len(X_temp)):
                 X_temp[ab] = round(X_temp[ab])
-            X_temp = np.unique(X_temp)
-            # print('count0', X_temp)
-            if len(X_temp) < 6:
-                count = len(X_temp)
-
-                while count < 6:
-                    c = np.random.randint(0, 16)
-
-                    if c not in X_temp:
-                        c = np.array(c)
-                        X_temp = np.append(X_temp, c)
-                        count = count + 1
             X_temp = np.sort(X_temp)
+            while len(np.unique(X_temp)) != 6:
+                for ik in range(len(X_temp) - 1):
+                    if X_temp[ik + 1] == X_temp[ik]:
+                        akl = random.choice([X_temp[ik + 1] - 1, X_temp[ik + 1] + 1])
+                        if akl < 0:
+                            X_temp[ik + 1] = X_temp[ik + 1] + 1
+                        else:
+                            X_temp[ik + 1] = akl
+                    else:
+                        pass
+                    X_temp = np.sort(X_temp)
+            # if len(X_temp) < 6:
+            #     count = len(X_temp)
+
+            #     while count < 6:
+            #         c = np.random.randint(0, 16)
+
+            #         if c not in X_temp:
+            #             c = np.array(c)
+            #             X_temp = np.append(X_temp, c)
+            #             count = count + 1
+            # X_temp = np.sort(X_temp)
             self.X[ax] = X_temp
         # print(self.X)
         self.Y = self.func(self.X).reshape(-1, 1)   # Function for fitness evaluation of new solutions
