@@ -91,6 +91,8 @@ class sca():
                         akl = random.choice([X_temp[ik + 1] - 1, X_temp[ik + 1] + 1])
                         if akl < 0:
                             X_temp[ik + 1] = X_temp[ik + 1] + 1
+                        elif akl > 16:
+                            X_temp[ik + 1] = X_temp[ik + 1] - 1
                         else:
                             X_temp[ik + 1] = akl
                     else:
@@ -145,7 +147,7 @@ def demo_func(p):
 
     x1, x2, x3, x4, x5, x6 = p
     print([x1, x2, x3, x4, x5, x6])
-    x1, x2, x3, x4, x5, x6 = round(x1), round(x2), round(x3), round(x4), round(x5), round(x6)
+    x1, x2, x3, x4, x5, x6 = x1-1, x2-1, x3-1, x4-1, x5-1, x6-1
     # aqc = aqc - 1
     time.sleep(2)
     Loss, Train_acc, Val_acc, a0 = combine_point([x1, x2, x3, x4, x5, x6], aqc)
@@ -164,10 +166,10 @@ if __name__ == '__main__':
     # time.sleep(2)
     set_run_mode(demo_func, 'multithreading')
     n_dim = 6
-    lb = [0 for i in range(n_dim)]
-    ub = [15 for i in range(n_dim)]
+    lb = [1 for i in range(n_dim)]
+    ub = [16 for i in range(n_dim)]
     demo_func = demo_func
-    sca = sca(n_dim=6, pop_size=2, a=2, max_iter=200, lb=lb, ub=ub, func=demo_func)
+    sca = sca(n_dim=6, pop_size=2, a=20, max_iter=200, lb=lb, ub=ub, func=demo_func)
     sca.run()
     print('best_x is ', sca.gbest_x, 'best_y is', sca.gbest_y)
 
