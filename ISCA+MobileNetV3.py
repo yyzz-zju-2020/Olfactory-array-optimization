@@ -3,7 +3,7 @@ Ref:https://github.com/luizaes/sca-algorithm and https://github.com/LucXiong/Swa
 Mirjalili, S. (2016). SCA: A Sine Cosine Algorithm for solving optimization problems. Knowledge-Based Systems, 96, 120-133. https://doi.org/10.1016/j.knosys.2015.12.022. 
 """
 
-
+#This method takes the example of selecting 6 arrays from 16 arrays
 import numpy as np
 import random
 import math
@@ -84,8 +84,8 @@ class sca():
             X_temp = self.X[ax]
             for ab in range(len(X_temp)):
                 X_temp[ab] = round(X_temp[ab])
-            X_temp = np.sort(X_temp)
-            while len(np.unique(X_temp)) != 6:
+            X_temp = np.sort(X_temp) 
+            while len(np.unique(X_temp)) != 6: #For duplicate integers, neighboring integers are chosen as one of the solutions
                 for ik in range(len(X_temp) - 1):
                     if X_temp[ik + 1] == X_temp[ik]:
                         akl = random.choice([X_temp[ik + 1] - 1, X_temp[ik + 1] + 1])
@@ -98,9 +98,8 @@ class sca():
                     else:
                         pass
                     X_temp = np.sort(X_temp)
-            # if len(X_temp) < 6:
+            # if len(X_temp) < 6:         #Compared to the last method, this solution has greater randomness
             #     count = len(X_temp)
-
             #     while count < 6:
             #         c = np.random.randint(0, 16)
 
@@ -164,7 +163,7 @@ import time
 
 if __name__ == '__main__':
     # time.sleep(2)
-    set_run_mode(demo_func, 'multithreading')
+    set_run_mode(demo_func, 'commom') #Whether the multithreading is synchronized or not can be selected here. common or multithreading
     n_dim = 6
     lb = [1 for i in range(n_dim)]
     ub = [16 for i in range(n_dim)]
